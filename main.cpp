@@ -80,10 +80,30 @@ void visualization()
 {
     //TODO: Initialize a plot named Map of size 300x150
     
+    // plt::figure_size(mapWidth / gridWidth, mapHeight / gridHeight);
+    const int width = mapWidth / gridWidth;
+    const int height = mapHeight / gridHeight;
+    plt::xlim(0, width);
+    plt::ylim(0, height);
+    plt::title("Map");    
+    
     //TODO: Loop over the log odds values of the cells and plot each cell state. 
     //Unkown state: green color, occupied state: black color, and free state: red color 
-    
+    // std::vector<double> unknown(n), occupied(n), free(n);
+    for(double x = 0; x < width; ++x) {
+        for(double y = 0; y < height; ++y) {
+            if(l[x][y] == l0) {
+                plt::plot( { x }, { y }, "g.");
+            } else if(l[x][y] > l0) {
+                plt::plot( { x }, { y }, "k.");
+            } else {
+                plt::plot( { x }, { y }, "r.");
+            }
+        }
+    }
+       
     //TODO: Save the image and close the plot 
+    plt::save("./Images/Map.png");
 }
 
 int main()
